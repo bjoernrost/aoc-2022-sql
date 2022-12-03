@@ -17,3 +17,14 @@ SELECT SUM(x) FROM
 		UNNEST(
 		REGEXP_MATCHES(
 		SUBSTRING(value FROM 0 FOR (length(value)/2)+1), '[' || substring(value from (length(value)/2)+1)  ||']')) in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') x  from day03.inputs) as subquery;
+
+-- turns out that regexp_replace with an inverse is easier to use than regexp_matches
+
+select  SUM( 
+	POSITION(
+	LEFT(
+	REGEXP_REPLACE(
+		REGEXP_REPLACE(a.value, '[^' || b.value || ']', '', 'g'), '[^' || c.value || ']', '', 'g'), 1)
+	 IN 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' ))
+	from day03.inputs a, day03.inputs b, day03.inputs c where b.id=a.id+1 and c.id=a.id+2 and (a.id-1) % 3 =0;
+
