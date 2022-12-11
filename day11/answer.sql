@@ -4,12 +4,16 @@
 do $$ 
 declare
   num_items int :=36;
-  item bigint;
+  item numeric;
   m int;
-  monkey bigint[8][36];
+  monkey numeric[8][36];
   inspections int[8]; 
+-- uncomment for second problem
+--  divisor int := 1;
+--  rounds int := 10000;
   divisor int := 3;
   rounds int := 20;
+  supermod int := (7*11*13*3*17*2*5*19);
 begin
    monkey := array_fill(0, array[8,num_items]);
    monkey[1][1] := 63;
@@ -58,7 +62,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item*11;
+		item := mod(item*11, supermod);
 		item := floor(item/divisor);
 		if mod(item,7) = 0 THEN
 			monkey[m][i] := 0;
@@ -76,7 +80,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item+1;
+		item := mod(item+1, supermod);
 		item := floor(item/divisor);
 		if mod(item,11) = 0 THEN
 			monkey[m][i] := 0;
@@ -94,7 +98,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item*7;
+		item := mod(item*7, supermod);
 		item := floor(item/divisor);
 		if mod(item,13) = 0 THEN
 			monkey[m][i] := 0;
@@ -112,7 +116,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item+3;
+		item := mod(item+3, supermod);
 		item := floor(item/divisor);
 		if mod(item,3) = 0 THEN
 			monkey[m][i] := 0;
@@ -130,7 +134,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item+6;
+		item := mod(item+6, supermod);
 		item := floor(item/divisor);
 		if mod(item,17) = 0 THEN
 			monkey[m][i] := 0;
@@ -148,7 +152,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item+5;
+		item := mod(item+5, supermod);
 		item := floor(item/divisor);
 		if mod(item,2) = 0 THEN
 			monkey[m][i] := 0;
@@ -166,7 +170,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item*item;
+		item := mod(item*item, supermod);
 		item := floor(item/divisor);
 		if mod(item,5) = 0 THEN
 			monkey[m][i] := 0;
@@ -184,7 +188,7 @@ LOOP
    LOOP
 	item := monkey[m][i];
 	if item > 0 THEN
-		item := item+7;
+		item := mod(item+7, supermod);
 		item := floor(item/divisor);
 		if mod(item,19) = 0 THEN
 			monkey[m][i] := 0;
