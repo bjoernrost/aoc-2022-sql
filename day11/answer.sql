@@ -1,17 +1,5 @@
--- Put everything in a schema so its easy to reset. This also makes
--- this automatically reset so we can just run it many times.
-DROP SCHEMA IF EXISTS day11 CASCADE;
-CREATE SCHEMA day11;
-
-CREATE TABLE day11.inputs (
-  id    SERIAL,
-  value varchar(250)
-);
-
 -- i don't think i will import and parse this data
 -- and populate my program manually instead
--- Use \COPY rather than COPY so its client-side in psql
---\COPY day11.inputs (value) FROM 'day11/input.txt' WITH (FORMAT 'text');
 
 do $$ 
 declare
